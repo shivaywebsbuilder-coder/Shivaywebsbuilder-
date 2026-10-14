@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0d">
+<meta name="description" content="ShivayWebsBuilder creates modern, responsive websites, restaurant QR menus and digital experiences for businesses.">
+<title>ShivayWebsBuilder | Web Designer & Developer</title>
+
+<style>
+:root {
+  --bg:#0b0b0d;
+  --surface:#141417;
+  --surface2:#1b1b20;
+  --text:#f5f5f7;
+  --muted:#a5a5af;
+  --red:#e63946;
+  --line:#2b2b31;
+  --max:1120px;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; scroll-padding-top:85px; }
+body {
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.7; overflow-x:hidden;
+}
+a { color:inherit; text-decoration:none; }
+button { font:inherit; cursor:pointer; }
+img { display:block; max-width:100%; }
+.container { width:min(92%,var(--max)); margin:auto; }
+.muted { color:var(--muted); }
+.red { color:var(--red); }
+.eyebrow {
+  color:var(--red); text-transform:uppercase;
+  letter-spacing:3px; font-size:.76rem; font-weight:700;
+}
+.section { padding:95px 0; }
+.section-head { margin-bottom:38px; max-width:680px; }
+.section-head h2 {
+  font-size:clamp(2rem,5vw,3.1rem);
+  line-height:1.15; margin:10px 0 15px;
+  letter-spacing:-1px;
+}
+.section-head p { color:var(--muted); }
+.btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:9px; padding:13px 21px; border-radius:8px;
+  font-weight:700; border:1px solid transparent;
+  transition:.2s; min-height:46px;
+}
+.btn:hover { transform:translateY(-2px); }
+.btn-primary { background:var(--red); color:white; }
+.btn-outline { border-color:#46464d; color:white; }
+.btn-outline:hover { border-color:var(--red); }
+header {
+  position:sticky; top:0; z-index:100;
+  background:rgba(11,11,13,.94);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav {
+  min-height:72px; display:flex; align-items:center;
+  justify-content:space-between; gap:20px;
+}
+.brand { font-weight:900; font-size:1.12rem; letter-spacing:-.5px; }
+.brand span { color:var(--red); }
+.nav-links { display:flex; gap:23px; align-items:center; }
+.nav-links a { color:#d4d4da; font-size:.88rem; }
+.nav-links a:hover { color:var(--red); }
+.menu-btn {
+  display:none; color:white; background:var(--surface2);
+  border:1px solid var(--line); border-radius:8px;
+  padding:8px 12px;
+}
+.hero {
+  position:relative; min-height:650px;
+  display:flex; align-items:center; overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(11,11,13,.97),rgba(11,11,13,.78)),
+    url("images/hero-bg.jpg") center/cover no-repeat;
+}
+.hero:after {
+  content:""; position:absolute; width:320px;height:320px;
+  right:-100px;top:80px;border-radius:50%;
+  background:rgba(230,57,70,.12);filter:blur(90px);
+  pointer-events:none;
+}
+.hero-content { position:relative; z-index:1; padding:85px 0; max-width:780px; }
+.hero h1 {
+  font-size:clamp(2.7rem,8vw,5.6rem);
+  line-height:1.04; letter-spacing:-3px; margin:18px 0;
+}
+.hero h1 span { color:var(--red); }
+.hero p { max-width:600px;color:#b5b5bf;font-size:1.05rem; }
+.hero-actions { display:flex;gap:12px;flex-wrap:wrap;margin-top:28px; }
+.hero-tags { display:flex;gap:10px;flex-wrap:wrap;margin-top:35px; }
+.tag {
+  padding:6px 11px; border:1px solid #303036;
+  border-radius:50px;color:#c7c7ce;font-size:.8rem;
+}
+.stats {
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:14px;margin-top:42px;max-width:560px;
+}
+.stat { border-left:2px solid var(--red);padding-left:14px; }
+.stat strong { display:block;font-size:1.3rem; }
+.stat small { color:var(--muted); }
+.grid { display:grid;gap:20px; }
+.about-grid { grid-template-columns:.85fr 1.15fr;align-items:center; }
+.profile-frame {
+  background:var(--surface);border:1px solid var(--line);
+  padding:12px;border-radius:18px;max-width:390px;
+}
+.profile-frame img {
+  width:100%;aspect-ratio:4/5;object-fit:cover;
+  border-radius:10px;background:#19191d;
+}
+.profile-placeholder {
+  aspect-ratio:4/5;display:grid;place-items:center;
+  text-align:center;color:var(--muted);padding:20px;
+}
+.about-copy h3 { font-size:1.8rem;margin:10px 0 16px; }
+.about-copy p { color:var(--muted);margin-bottom:15px; }
+.pill-list { display:flex;flex-wrap:wrap;gap:9px;margin:22px 0; }
+.pill { background:var(--surface2);padding:7px 12px;border-radius:6px;font-size:.83rem; }
+.cards-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.card {
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:24px;transition:.25s;
+}
+.card:hover { transform:translateY(-4px);border-color:#754047; }
+.card-icon {
+  width:46px;height:46px;display:grid;place-items:center;
+  border-radius:10px;background:rgba(230,57,70,.13);
+  color:var(--red);font-size:1.4rem;margin-bottom:18px;
+}
+.card h3 { font-size:1.12rem;margin-bottom:9px; }
+.card p { color:var(--muted);font-size:.92rem; }
+.skills-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.skill {
+  padding:18px;background:var(--surface);
+  border:1px solid var(--line);border-radius:10px;
+}
+.skill strong { display:block;margin-bottom:4px; }
+.skill span { color:var(--muted);font-size:.82rem; }
+.project-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.project-card {
+  overflow:hidden;background:var(--surface);
+  border:1px solid var(--line);border-radius:15px;
+}
+.project-image {
+  position:relative;background:#1a1a1f;overflow:hidden;
+  aspect-ratio:16/9;
+}
+.project-image img {
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .35s;
+}
+.project-card:hover .project-image img { transform:scale(1.04); }
+.project-placeholder {
+  width:100%;height:100%;min-height:180px;
+  display:grid;place-items:center;text-align:center;
+  padding:20px;color:#bcbcc5;
+  background:linear-gradient(135deg,#17171c,#292027);
+}
+.project-info { padding:22px; }
+.project-info h3 { font-size:1.25rem;margin-bottom:7px; }
+.project-info p { color:var(--muted);font-size:.91rem; }
+.project-label {
+  display:inline-block;color:#ff969e;background:#3b1c21;
+  padding:4px 9px;border-radius:5px;font-size:.73rem;
+  margin-bottom:10px;
+}
+.project-links { display:flex;gap:17px;flex-wrap:wrap;margin-top:18px; }
+.text-link { color:#ff7a84;font-size:.9rem;font-weight:700; }
+.process-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.step-number { color:var(--red);font-weight:900;font-size:1.6rem;margin-bottom:10px; }
+.contact-box {
+  padding:clamp(25px,6vw,55px);
+  border:1px solid #47262b;border-radius:18px;
+  background:radial-gradient(ellipse at top right,#30171c,var(--surface) 60%);
+}
+.contact-box h2 { font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin:12px 0; }
+.contact-box p { color:var(--muted);max-width:580px; }
+.contact-actions { display:flex;gap:12px;flex-wrap:wrap;margin-top:25px; }
+.contact-note { margin-top:18px;font-size:.8rem;color:var(--muted); }
+footer { border-top:1px solid var(--line);padding:25px 0; }
+.footer-inner {
+  display:flex;justify-content:space-between;gap:15px;
+  align-items:center;flex-wrap:wrap;
+}
+footer p,footer a { font-size:.82rem;color:var(--muted); }
+footer a:hover { color:var(--red); }
+@media(max-width:900px) {
+  .nav-links {
+    display:none;position:absolute;top:71px;left:0;right:0;
+    padding:22px 5%;background:#111114;
+    border-bottom:1px solid var(--line);
+    flex-direction:column;align-items:stretch;gap:0;
+  }
+  .nav-links.open { display:flex; }
+  .nav-links a { padding:12px 0;border-bottom:1px solid #242429; }
+  .menu-btn { display:block; }
+  .about-grid { grid-template-columns:1fr; }
+  .profile-frame { max-width:320px; }
+  .cards-3 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .skills-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .process-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:560px) {
+  .section { padding:68px 0; }
+  .hero { min-height:580px; }
+  .hero h1 { letter-spacing:-1.7px; }
+  .hero-content { padding:65px 0; }
+  .stats { gap:8px; }
+  .stat strong { font-size:1.05rem; }
+  .stat small { font-size:.72rem; }
+  .cards-3,.project-grid { grid-template-columns:1fr; }
+  .card { padding:21px; }
+  .btn { padding:12px 15px; }
+  .footer-inner { align-items:flex-start;flex-direction:column; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    scroll-behavior:auto!important;transition:none!important;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home">Shivay<span>Webs</span>Builder</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open navigation"
+      aria-expanded="false">☰ Menu</button>
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="container hero-content">
+    <div class="eyebrow">Web Design · Development · Digital Solutions</div>
+    <h1>Building Digital<br>Experiences That<br><span>Make an Impact.</span></h1>
+    <p>
+      Hi, I'm Shivay — a beginner web creator building modern,
+      mobile-friendly websites for businesses, creators and ideas.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">Explore My Work ↗</a>
+      <a class="btn btn-outline" href="#contact">Let's Connect</a>
+    </div>
+    <div class="hero-tags">
+      <span class="tag">Responsive Websites</span>
+      <span class="tag">QR Digital Menus</span>
+      <span class="tag">UI Design</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>Mobile First</strong><small>Responsive design</small></div>
+      <div class="stat"><strong>Real Projects</strong><small>Learning by building</small></div>
+      <div class="stat"><strong>Client Focus</strong><small>Practical solutions</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="container grid about-grid">
+    <div class="profile-frame">
+      <img src="images/profile.jpg" alt="Shivay, web creator"
+           onerror="this.style.display='none';this.nextElementSibling.hidden=false">
+      <div class="profile-placeholder" hidden>
+        <div><strong class="red">YOUR PHOTO</strong><p>Add images/profile.jpg</p></div>
+      </div>
+    </div>
+    <div class="about-copy">
+      <div class="eyebrow">About Me</div>
+      <h3>Turning Ideas Into <span class="red">Web Experiences.</span></h3>
+      <p>
+        I'm Shivay, building my skills in website design and development.
+        I enjoy turning ideas into clean, useful and mobile-friendly websites.
+      </p>
+      <p>
+        My current projects include a local business discovery platform,
+        restaurant QR menus and a Hindi GK learning website.
+        I'm focused on improving through practical work.
+      </p>
+      <div class="pill-list">
+        <span class="pill">Creative Thinking</span>
+        <span class="pill">Mobile-First Design</span>
+        <span class="pill">HTML · CSS · JavaScript</span>
+        <span class="pill">Continuous Learning</span>
+      </div>
+      <a class="btn btn-outline" href="#contact">Work With Me ↗</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services" style="background:#101013">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">What I Can Build</div>
+      <h2>Services & <span class="red">Solutions.</span></h2>
+      <p>Simple, useful digital experiences designed around your business needs.</p>
+    </div>
+    <div class="grid cards-3">
+      <article class="card">
+        <div class="card-icon">⌘</div>
+        <h3>Business Websites</h3>
+        <p>Professional websites to introduce your business, services, contact details and location.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">▦</div>
+        <h3>Restaurant QR Menus</h3>
+        <p>Mobile-friendly digital menus with food photos, prices, categories and QR access.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">✳</div>
+        <h3>Portfolio Websites</h3>
+        <p>Personal portfolios to showcase your skills, projects and contact information.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">◈</div>
+        <h3>Landing Pages</h3>
+        <p>Focused pages for a product, campaign, service or business promotion.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">▤</div>
+        <h3>Website Redesign</h3>
+        <p>Improve the layout, readability and mobile experience of an existing website.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">↗</div>
+        <h3>Website Publishing</h3>
+        <p>Help with static website files, basic SEO setup and GitHub Pages publishing.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">My Toolkit</div>
+      <h2>Skills & <span class="red">Technologies.</span></h2>
+      <p>Tools and technologies I use or am currently learning.</p>
+    </div>
+    <div class="grid skills-grid">
+      <div class="skill"><strong>HTML5</strong><span>Page structure</span></div>
+      <div class="skill"><strong>CSS3</strong><span>Layout & styling</span></div>
+      <div class="skill"><strong>JavaScript</strong><span>Basic interactions</span></div>
+      <div class="skill"><strong>Responsive UI</strong><span>Mobile-first design</span></div>
+      <div class="skill"><strong>GitHub Pages</strong><span>Static hosting</span></div>
+      <div class="skill"><strong>UI / UX</strong><span>Usability & layout</span></div>
+      <div class="skill"><strong>Image Optimization</strong><span>Web-ready assets</span></div>
+      <div class="skill"><strong>SEO Basics</strong><span>Page metadata</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects" style="background:#101013">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Selected Work</div>
+      <h2>Projects I've <span class="red">Been Building.</span></h2>
+      <p>Replace the preview images and demo links with your actual projects before presenting them to clients.</p>
+    </div>
+
+    <div class="grid project-grid">
+      <article class="project-card">
+        <div class="project-image">
+          <img src="images/talasho.jpg" alt="Talasho India project preview"
+               onerror="this.style.display='none';this.nextElementSibling.hidden=false">
+          <div class="project-placeholder" hidden>TALASHO INDIA<br>Local Discovery Platform</div>
+        </div>
+        <div class="project-info">
+          <span class="project-label">Local Discovery</span>
+          <h3>Talasho India</h3>
+          <p>A platform concept for discovering local shops and services across India.</p>
+          <div class="project-links">
+            <a class="text-link" href="https://delightful-talasho-local-link.base44.app/" target="_blank" rel="noopener noreferrer">Open Project ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-image">
+          <img src="images/restaurant-menu.jpg" alt="Restaurant QR menu preview"
+               onerror="this.style.display='none';this.nextElementSibling.hidden=false">
+          <div class="project-placeholder" hidden>RESTAURANT QR MENU<br>Digital Menu Website</div>
+        </div>
+        <div class="project-info">
+          <span class="project-label">Restaurant Website</span>
+          <h3>Restaurant QR Menu</h3>
+          <p>A mobile-first digital menu concept with food categories, prices and QR access.</p>
+          <div class="project-links">
+            <!-- Replace # with your actual live menu URL -->
+            <a class="text-link" href="#contact">Ask for Demo ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-image">
+          <img src="images/subah-shaam-gk.jpg" alt="Subah Shaam GK project preview"
+               onerror="this.style.display='none';this.nextElementSibling.hidden=false">
+          <div class="project-placeholder" hidden>SUBAH SHAAM GK<br>Hindi Learning Website</div>
+        </div>
+        <div class="project-info">
+          <span class="project-label">Education</span>
+          <h3>Subah Shaam GK</h3>
+          <p>A Hindi general knowledge learning concept with quizzes and subject-wise practice.</p>
+          <div class="project-links">
+            <!-- Replace # with your actual live GK website URL -->
+            <a class="text-link" href="#contact">Project Details ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-image">
+          <img src="images/fitness.jpg" alt="Fitness journey project preview"
+               onerror="this.style.display='none';this.nextElementSibling.hidden=false">
+          <div class="project-placeholder" hidden>FITNESS JOURNEY<br>Personal Brand Concept</div>
+        </div>
+        <div class="project-info">
+          <span class="project-label">Personal Brand</span>
+          <h3>Fitness Journey</h3>
+          <p>A concept for sharing fitness progress, discipline and lifestyle content.</p>
+          <div class="project-links">
+            <a class="text-link" href="https://www.instagram.com/shivayrudrafit/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">How I Work</div>
+      <h2>From Idea to <span class="red">Website.</span></h2>
+      <p>A simple, clear process for every project.</p>
+    </div>
+    <div class="grid process-grid">
+      <article class="card">
+        <div class="step-number">01</div>
+        <h3>Understand</h3>
+        <p>Discuss your business, audience, goals and required features.</p>
+      </article>
+      <article class="card">
+        <div class="step-number">02</div>
+        <h3>Design</h3>
+        <p>Plan the layout, colors, content and mobile experience.</p>
+      </article>
+      <article class="card">
+        <div class="step-number">03</div>
+        <h3>Build & Test</h3>
+        <p>Create the website and test links, buttons and mobile layouts.</p>
+      </article>
+      <article class="card">
+        <div class="step-number">04</div>
+        <h3>Publish</h3>
+        <p>Prepare the files and publish using an agreed hosting setup.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact-box">
+      <div class="eyebrow">Let's Talk</div>
+      <h2>Have a Project<br>in <span class="red">Mind?</span></h2>
+      <p>
+        Need a business website, restaurant QR menu or personal portfolio?
+        Send me your idea and let's discuss the next steps.
+      </p>
+      <div class="contact-actions">
+        <!-- IMPORTANT: replace the number in the script below -->
+        <a class="btn btn-primary" id="whatsappBtn" href="#">Chat on WhatsApp ↗</a>
+        <a class="btn btn-outline" id="emailBtn" href="#">Send an Email ↗</a>
+      </div>
+      <div class="contact-note">Project scope, pricing and delivery timeline are discussed individually.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <a class="brand" href="#home">Shivay<span>Webs</span>Builder</a>
+    <p>© <span id="year"></span> ShivayWebsBuilder. Built with care.</p>
+    <a href="#home">Back to Top ↑</a>
+  </div>
+</footer>
+
+<script>
+/* ========== EDIT YOUR CONTACT DETAILS HERE ========== */
+const WHATSAPP_NUMBER = "91XXXXXXXXXX"; // Country code + number, no + or spaces
+const EMAIL_ADDRESS = "yourname@example.com";
+/* =================================================== */
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", function () {
+  const isOpen = navLinks.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", String(isOpen));
+  menuBtn.textContent = isOpen ? "✕ Close" : "☰ Menu";
+});
+
+navLinks.querySelectorAll("a").forEach(function (link) {
+  link.addEventListener("click", function () {
+    navLinks.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.textContent = "☰ Menu";
+  });
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const whatsappBtn = document.getElementById("whatsappBtn");
+const emailBtn = document.getElementById("emailBtn");
+
+if (/^\d{10,15}$/.test(WHATSAPP_NUMBER) &&
+    !WHATSAPP_NUMBER.includes("XXXXXXXXXX")) {
+  const message = encodeURIComponent(
+    "Hi Shivay! I am interested in a website project."
+  );
+  whatsappBtn.href =
+    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + message;
+  whatsappBtn.target = "_blank";
+  whatsappBtn.rel = "noopener noreferrer";
+} else {
+  whatsappBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    alert("Please add your WhatsApp number in the JavaScript section of index.html.");
+  });
+}
+
+if (EMAIL_ADDRESS.includes("@") &&
+    !EMAIL_ADDRESS.includes("example.com")) {
+  emailBtn.href = "mailto:" + EMAIL_ADDRESS;
+} else {
+  emailBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    alert("Please add your email address in the JavaScript section of index.html.");
+  });
+}
+</script>
+</body>
+</html>
